@@ -7,19 +7,13 @@ package com.manishgill.godfather.engine;
  * Represents a Value that is stored using a StorageEngine.
  * https://docs.oracle.com/javase/tutorial/essential/concurrency/imstrat.html
  */
-public class Value {
-    private final byte[] data;
+public class Value extends DataBuffer {
 
     public Value(byte[] value) {
-        this.data = value;
+        super(value);
     }
 
     public Value(String value) {
-        this.data = value.getBytes();
+        super(value);
     }
-
-    public byte[] getData() {
-        return data;
-    }
-
 }

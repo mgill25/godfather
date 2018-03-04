@@ -7,19 +7,13 @@ package com.manishgill.godfather.engine;
  * A Key that is used to store and look up Value in
  * the StorageEngine.
  */
-public class Key {
-    private final byte[] keyname;
+public class Key extends DataBuffer {
 
     public Key(byte[] keyname) {
-        this.keyname = keyname;
+        super(keyname);
     }
 
     public Key(String name) {
-        this.keyname = name.getBytes();
+        super(name);
     }
-
-    public byte[] getKeyname() {
-        return keyname;
-    }
-
 }
