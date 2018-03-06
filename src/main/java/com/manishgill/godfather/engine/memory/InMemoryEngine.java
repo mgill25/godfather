@@ -3,6 +3,7 @@ package com.manishgill.godfather.engine.memory;
 import com.manishgill.godfather.engine.Key;
 import com.manishgill.godfather.engine.StorageEngine;
 import com.manishgill.godfather.engine.Value;
+import com.manishgill.godfather.exceptions.KeyError;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -27,8 +28,12 @@ public class InMemoryEngine implements StorageEngine {
         return true;
     }
 
-    public Value retrieveData(Key k) {
-        return store.get(k);
+    public Value retrieveData(Key k) throws KeyError {
+        Value val = store.get(k);
+        if (val == null) {
+            throw new KeyError("Could not find value for given key");
+        }
+        return val;
     }
 
     public Boolean deleteData(Key k) {

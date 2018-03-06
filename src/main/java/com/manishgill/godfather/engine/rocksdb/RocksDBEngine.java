@@ -3,6 +3,7 @@ package com.manishgill.godfather.engine.rocksdb;
 import com.manishgill.godfather.engine.Key;
 import com.manishgill.godfather.engine.StorageEngine;
 import com.manishgill.godfather.engine.Value;
+import com.manishgill.godfather.exceptions.KeyError;
 import org.rocksdb.*;
 import org.rocksdb.util.SizeUnit;
 
@@ -101,18 +102,22 @@ public class RocksDBEngine implements StorageEngine {
     }
 
     @Override
-    public Value retrieveData(Key k) {
+    public Value retrieveData(Key k) throws KeyError {
         try {
             final byte[] rawValue = store.get(k.getBytes());
             if (rawValue == null) {
-                System.out.println("Key not found");
-                return null;                        // TODO: Make these methods throw KeyError
+                throw new KeyError("Could not find value for the given key");
             }
             return new Value(rawValue);
         } catch (RocksDBException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public Boolean contains(Key k) {
+        // TODO: Why does this require a StringBuilder as a second param?
+        return store.keyMayExist(k.getBytes(), new StringBuilder());
     }
 
     @Override

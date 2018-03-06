@@ -1,5 +1,7 @@
 package com.manishgill.godfather.engine;
 
+import com.manishgill.godfather.exceptions.KeyError;
+
 /**
  * @author Manish Gill <manish.gill@wingify.com>
  * @date 3/3/18
@@ -14,7 +16,7 @@ public interface StorageEngine {
 
     public Boolean storeData(Key k, Value val);
 
-    public Value retrieveData(Key k);
+    public Value retrieveData(Key k) throws KeyError;
 
     public Boolean deleteData(Key k);
 
